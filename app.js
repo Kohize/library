@@ -8,17 +8,18 @@ const pagesField = document.querySelector('.input__pages');
 const readField = document.querySelector('.input__read');
 const modalAddButton = document.querySelector('.add');
 let readToggle = document.querySelector('.toggle')
-
+let index = 0;
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    myLibrary.forEach(book => renderBooks(book));
+    myLibrary.forEach((book, index) => renderBooks(book, index));
 });
 
 const myLibrary = [];
 
 class Book {
-    constructor(title, author, pages, read) {
+    constructor(index, title, author, pages, read) {
+        this.index = index;
         this.title = title;
         this.author = author;
         this.pages = pages;
@@ -27,58 +28,64 @@ class Book {
 }
 
 function addBookToLibrary() {
-    const userBook = new Book(titleField.value, authorField.value, pagesField.value, readField.value);
+    const userBook = new Book(index++, titleField.value, authorField.value, pagesField.value, readField.value);
     myLibrary.push(userBook);
     renderBooks(userBook)
     closeModal();
-    removeBook();
-    toggleRead()
 }
 
-function removeBook() {
-    let removeBookButton = document.querySelectorAll('.remove')
-    const buttons = [...removeBookButton];
-    buttons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.currentTarget.parentNode.remove();
-        })
-    })
+function removeBook(book) {
+    myLibrary.splice(book.index, 1);
+
 }
 
-function readToggleHandle() {
-    let status = document.querySelector('.haveread');
-    if (status.textContent === 'Have read: True') {
-        status.textContent = 'Have read: False'
+function readToggleHandle(e) {
+    if (e.target.closest('li').querySelector('.haveread').textContent === 'Have read: True') {
+        e.target.closest('li').querySelector('.haveread').textContent = 'Have read: False'
     } else {
-        status.textContent = 'Have read: True';
+        e.target.closest('li').querySelector('.haveread').textContent = 'Have read: True'
     }
 }
 
-
-function toggleRead() {
-    const readToggle = document.querySelectorAll('.toggle')
-    const toggleButtons = [...readToggle];
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', readToggleHandle)
-
-    }
-    )
-}
+// function toggleRead() {
+//     const readToggle = document.querySelectorAll('.toggle')
+//     const toggleButtons = [...readToggle];
+//     toggleButtons.forEach(button => {
+//         button.addEventListener('click', (e) => {
+//             readToggleHandle(e);
+//         })
+//     }
+//     )
+// }
 
 
 
 function renderBooks(book) {
     const libraryItem = document.createElement('li')
-
+    console.log(book.index);
     libraryItem.innerHTML = `
     <h2>${book.title}</h2>
     <p>Author: ${book.author}</p>
     <p>Amount of pages: ${book.pages}</p>
     <p class="haveread">Have read: ${book.read}</p>
-    <button class="remove">Remove</button>
-<button class="toggle">Read</button>
+    <button class="remove" data-index="${book.index}">Remove</button>
+<button class="toggle" >Read</button>
     `
     libraryList.append(libraryItem);
+    libraryItem.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove')) {
+            removeBook(book);
+            e.target.parentNode.remove();
+        }
+
+    })
+
+    libraryItem.addEventListener('click', (e) => {
+        if (e.target.classList.contains('toggle')) {
+            readToggleHandle(e);
+        }
+
+    })
 }
 
 function showModal() {
