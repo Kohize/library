@@ -12,7 +12,7 @@ let index = 0;
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    myLibrary.forEach((book, index) => renderBooks(book, index));
+    myLibrary.forEach((book) => renderBooks(book));
 });
 
 const myLibrary = [];
@@ -49,7 +49,6 @@ function readToggleHandle(e) {
 
 function renderBooks(book) {
     const libraryItem = document.createElement('li')
-    console.log(book.index);
     libraryItem.innerHTML = `
     <h2>${book.title}</h2>
     <p>Author: ${book.author}</p>
