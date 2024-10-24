@@ -4,10 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
   </head>
   <body>
-    <h1 class="title">My library</h1>
+    <h1 class="title">My Library</h1>
     <section class="table">
       <ul class="table__list"></ul>
     </section>
@@ -17,9 +23,16 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <div class="modal__inputs">
-          <input class="input__title" type="text" placeholder="Title" />
-          <input class="input__author" type="text" placeholder="Author" />
-          <input class="input__pages" type="number" placeholder="Pages" />
+          <label for="title">Title</label>
+          <input
+            class="input__title"
+            type="text"
+            placeholder="e.g The Hobbit"
+          />
+          <label for="author">Author</label>
+          <input class="input__author" type="text" placeholder="e.g Tolkien" />
+          <label for="pages">Amount of pages</label>
+          <input class="input__pages" type="number" placeholder="e.g 300" />
           <p>Have Read?</p>
           <select name="read" id="read" class="input__read">
             <option value="True">True</option>

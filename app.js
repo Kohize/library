@@ -47,19 +47,6 @@ function readToggleHandle(e) {
     }
 }
 
-// function toggleRead() {
-//     const readToggle = document.querySelectorAll('.toggle')
-//     const toggleButtons = [...readToggle];
-//     toggleButtons.forEach(button => {
-//         button.addEventListener('click', (e) => {
-//             readToggleHandle(e);
-//         })
-//     }
-//     )
-// }
-
-
-
 function renderBooks(book) {
     const libraryItem = document.createElement('li')
     console.log(book.index);
@@ -107,9 +94,4 @@ window.addEventListener('click', (e) => {
 })
 
 modalAddButton.addEventListener('click', addBookToLibrary);
-modalAddButton.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        addBookToLibrary();
-    }
-})
 
